@@ -28,7 +28,7 @@ def extract_semver_version(branch_name):
     semver_pattern = r'^release/v(\d+\.\d+\.\d+)$'
     match = re.match(semver_pattern, branch_name)
     if not match:
-        print("Branch name doesn't follow the expected format (e.g., release/vX.Y.Z). Exiting.", file=sys.stderr)
+        print(f"Branch name {branch_name} doesn't follow the expected format (e.g., release/vX.Y.Z). Exiting.", file=sys.stderr)
         sys.exit(2)  # Exit code 2: Branch name format is invalid
     return match.group(1)
 
