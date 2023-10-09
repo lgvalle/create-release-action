@@ -16,5 +16,5 @@ jobs:
       - name: Create Release action
         uses: ./
         with:
-          openai-api-key: ${{ secrets.openai-api-key }}
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
