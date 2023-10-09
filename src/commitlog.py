@@ -4,12 +4,13 @@ import re
 import argparse
 
 def main():
-    parser = argparse.ArgumentParser(description="Calculate commit log between previous tag and current branch")
+    parser = argparse.ArgumentParser(description="Calculate commit log between previous tag or main branch and current branch")
     parser.add_argument("--branch", help="The current branch name")
 
     args = parser.parse_args()
 
     current_branch = args.branch
+    main_branch = get_default_remote_branch()
 
     semver_version = extract_semver_version(current_branch)
     all_tags = list_all_tags()
@@ -18,10 +19,9 @@ def main():
     previous_tag = find_previous_tag(semver_version, sorted_tags)
 
     if previous_tag is None:
-        print(f"No previous tag found for branch {current_branch}. Exiting.", file=sys.stderr)
-        sys.exit(5)  # Exit code 5: No previous tag found
+        print(f"No previous tag found for branch {current_branch}. Comparing with the main branch ({main_branch}).")
 
-    commit_log = calculate_commit_log(previous_tag, current_branch)
+    commit_log = calculate_commit_log(previous_tag or main_branch, current_branch)
     print(commit_log)
 
 def extract_semver_version(branch_name):
