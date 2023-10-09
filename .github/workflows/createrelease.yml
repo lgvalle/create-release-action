@@ -12,8 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.head_ref, 'release/') && github.event.pull_request.merged == false
     steps:
+      - uses: actions/checkout@v4
       - name: Create Release action
         uses: ./
         with:
-          openai-api-key:
-          github-token: 
+          openai-api-key: ${{ secrets.openai-api-key }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
