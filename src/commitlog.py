@@ -59,5 +59,17 @@ def calculate_commit_log(previous_tag, current_branch):
         sys.exit(4)  # Exit code 4: Failed to calculate the commit log
     return result.stdout.strip()
 
+def get_default_remote_branch():
+    try:
+        result = subprocess.run(
+            ["git", "symbolic-ref", "refs/remotes/origin/HEAD"],
+            capture_output=True, text=True, check=True
+        )
+        remote_branch = result.stdout.strip().split('/')[-1]
+        return remote_branch
+    except subprocess.CalledProcessError as e:
+        print("Failed to determine the default remote branch.", file=sys.stderr)
+        sys.exit(6)  # Exit code 6: Failed to determine the default remote branch
+
 if __name__ == "__main__":
     main()
