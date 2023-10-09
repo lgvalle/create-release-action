@@ -55,7 +55,7 @@ def find_previous_tag(semver_version, sorted_tags):
 def calculate_commit_log(previous_tag, current_branch):
     result = subprocess.run(["git", "log", f"{previous_tag}..{current_branch}", "--pretty=format:%h - %an - %ad - %s", "--date=default"], capture_output=True, text=True)
     if result.returncode != 0:
-        print("Failed to calculate the commit log.", file=sys.stderr)
+        print(f"Failed to calculate the commit log between {previous_tag}..{current_branch}.", file=sys.stderr)
         sys.exit(4)  # Exit code 4: Failed to calculate the commit log
     return result.stdout.strip()
 
