@@ -11,7 +11,7 @@ def main():
     previous_tag = find_previous_tag(semver_version, sorted_tags)
 
     if previous_tag is None:
-        print(f"No previous tag found for branch {current_branch}. Exiting.")
+        print(f"No previous tag found for branch {current_branch}. Exiting.", file=sys.stderr)
         sys.exit(5)  # Exit code 5: No previous tag found
 
     commit_log = calculate_commit_log(previous_tag, current_branch)
@@ -20,7 +20,7 @@ def main():
 def get_current_branch():
     result = subprocess.run(["git", "symbolic-ref", "--short", "HEAD"], capture_output=True, text=True)
     if result.returncode != 0:
-        print("Failed to get the current branch name.")
+        print("Failed to get the current branch name.", file=sys.stderr)
         sys.exit(1)  # Exit code 1: Failed to get the current branch name
     return result.stdout.strip()
 
@@ -28,14 +28,14 @@ def extract_semver_version(branch_name):
     semver_pattern = r'^release/v(\d+\.\d+\.\d+)$'
     match = re.match(semver_pattern, branch_name)
     if not match:
-        print("Branch name doesn't follow the expected format (e.g., release/vX.Y.Z). Exiting.")
+        print("Branch name doesn't follow the expected format (e.g., release/vX.Y.Z). Exiting.", file=sys.stderr)
         sys.exit(2)  # Exit code 2: Branch name format is invalid
     return match.group(1)
 
 def list_all_tags():
     result = subprocess.run(["git", "tag", "-l"], capture_output=True, text=True)
     if result.returncode != 0:
-        print("Failed to list tags.")
+        print("Failed to list tags.", file=sys.stderr)
         sys.exit(3)  # Exit code 3: Failed to list tags
     return result.stdout.strip().split("\n")
 
@@ -55,7 +55,7 @@ def find_previous_tag(semver_version, sorted_tags):
 def calculate_commit_log(previous_tag, current_branch):
     result = subprocess.run(["git", "log", f"{previous_tag}..{current_branch}", "--pretty=format:%h - %an - %ad - %s", "--date=default"], capture_output=True, text=True)
     if result.returncode != 0:
-        print("Failed to calculate the commit log.")
+        print("Failed to calculate the commit log.", file=sys.stderr)
         sys.exit(4)  # Exit code 4: Failed to calculate the commit log
     return result.stdout.strip()
 
