@@ -1,0 +1,19 @@
+name: Create Release
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: 
+      - closed
+
+jobs:      
+  create_release:
+    runs-on: ubuntu-latest
+    if: startsWith(github.head_ref, 'release/') && github.event.pull_request.merged == false
+    steps:
+      - name: Create Release action
+        uses: ./
+        with:
+          openai-api-key:
+          github-token: 
