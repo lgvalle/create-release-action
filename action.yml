@@ -10,6 +10,9 @@ inputs:
   github-token:
     description: 'Your Github token'
     required: true
+  branch-name:
+    description: 'The name of the branch to create the release from'
+    required: true
 runs:      
   using: 'composite'
   steps:
@@ -18,7 +21,7 @@ runs:
     - id: create_commit_log
       shell: bash
       run: |
-        commit_log=$(python ./src/commitlog.py)
+        commit_log=$(python ./src/commitlog.py --branch ${{ inputs.branch-name }})
         echo "COMMIT_LOG=$commit_log" >> "$GITHUB_OUTPUT"
 
     - id: summarise_commit_log
