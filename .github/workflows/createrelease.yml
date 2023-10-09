@@ -18,3 +18,4 @@ jobs:
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          branch-name: ${{ github.event.pull_request.head.ref }}
