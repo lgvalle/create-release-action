@@ -2,7 +2,7 @@ name: 'Auto Create Release'
 description: 'Automatically creates a new release listing all commits since the previous release'
 branding:
   icon: 'box'
-  color: 'green'
+  color: 'yellow'
 inputs:
   openai-api-key:
     description: 'Your own OpenAI API key'
@@ -18,9 +18,7 @@ runs:
     - id: create_commit_log
       shell: bash
       run: |
-        git fetch origin
-        PREVIOUS_TAG=$(git describe --tags --abbrev=0 --first-parent $(git rev-list --tags --max-count=1))
-        commit_log=$(git log $PREVIOUS_TAG..${{ github.event.pull_request.head.sha }} --pretty=format:"%h - %an - %ad - %s" --date=default | jq -s -R -r @json)
+        commit_log=$(python ./src/commitlog.py)
         echo "COMMIT_LOG=$commit_log" >> "$GITHUB_OUTPUT"
 
     - id: summarise_commit_log
