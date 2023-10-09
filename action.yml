@@ -1,5 +1,8 @@
-name: 'Create Release'
-description: 'When a branch is merged, creates a new release listing all commits since the previous release'
+name: 'Auto Create Release'
+description: 'Automatically creates a new release listing all commits since the previous release'
+branding:
+  icon: 'box'
+  color: 'green'
 inputs:
   openai-api-key:
     description: 'Your own OpenAI API key'
