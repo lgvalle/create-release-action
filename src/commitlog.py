@@ -6,11 +6,12 @@ import argparse
 def main():
     parser = argparse.ArgumentParser(description="Calculate commit log between previous tag or main branch and current branch")
     parser.add_argument("--branch", help="The current branch name")
+    parser.add_argument("--default-branch", help="The default branch name")
 
     args = parser.parse_args()
 
     current_branch = args.branch
-    main_branch = get_default_remote_branch()
+    default_branch = args.default_branch if args.default_branch else get_default_remote_branch()
 
     semver_version = extract_semver_version(current_branch)
     all_tags = list_all_tags()
@@ -19,9 +20,9 @@ def main():
     previous_tag = find_previous_tag(semver_version, sorted_tags)
 
     if previous_tag is None:
-        print(f"No previous tag found for branch {current_branch}. Comparing with the main branch ({main_branch}).")
+        print(f"No previous tag found for branch {current_branch}. Comparing with the default branch ({default_branch}).")
 
-    commit_log = calculate_commit_log(previous_tag or main_branch, current_branch)
+    commit_log = calculate_commit_log(previous_tag or default_branch, current_branch)
     print(commit_log)
 
 def extract_semver_version(branch_name):
@@ -57,6 +58,7 @@ def calculate_commit_log(previous_tag, current_branch):
     if result.returncode != 0:
         print(f"Failed to calculate the commit log between {previous_tag}..{current_branch}.", file=sys.stderr)
         sys.exit(4)  # Exit code 4: Failed to calculate the commit log
+
     return result.stdout.strip()
 
 def get_default_remote_branch():

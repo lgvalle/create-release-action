@@ -19,3 +19,4 @@ jobs:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           branch-name: ${{ github.event.pull_request.head.ref }}
+          default-branch: ${{ github.event.pull_request.base.ref }}
