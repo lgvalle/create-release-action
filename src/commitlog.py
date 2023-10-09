@@ -1,9 +1,16 @@
 import subprocess
 import sys
 import re
+import argparse
 
 def main():
-    current_branch = get_current_branch()
+    parser = argparse.ArgumentParser(description="Calculate commit log between previous tag and current branch")
+    parser.add_argument("--branch", help="The current branch name")
+
+    args = parser.parse_args()
+
+    current_branch = args.branch
+
     semver_version = extract_semver_version(current_branch)
     all_tags = list_all_tags()
 
@@ -17,16 +24,9 @@ def main():
     commit_log = calculate_commit_log(previous_tag, current_branch)
     print(commit_log)
 
-def get_current_branch():
-    result = subprocess.run(["git", "symbolic-ref", "--short", "HEAD"], capture_output=True, text=True)
-    if result.returncode != 0:
-        print("Failed to get the current branch name.", file=sys.stderr)
-        sys.exit(1)  # Exit code 1: Failed to get the current branch name
-    return result.stdout.strip()
-
 def extract_semver_version(branch_name):
     semver_pattern = r'^release/v(\d+\.\d+\.\d+)$'
-    match = re.match(semver_pattern, branch_name)
+    match = re.match(semver_pattern, branch_name.strip())  # Use strip() to remove any whitespace
     if not match:
         print(f"Branch name {branch_name} doesn't follow the expected format (e.g., release/vX.Y.Z). Exiting.", file=sys.stderr)
         sys.exit(2)  # Exit code 2: Branch name format is invalid
