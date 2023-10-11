@@ -13,9 +13,11 @@ fi
 # Get a list of all tags sorted by tagger date
 tags_sorted_by_date=$(git tag --sort='-creatordate')
 
+echo "::debug::Tags sorted by date $tags_sorted_by_date"
 # Find the previous tag based on the tagger date
 previous_tag=""
 for tag in $tags_sorted_by_date; do
+  echo "::debug::Tag $tag"
   if git branch --contains $tag | grep -q -- "$current_branch"; then
     previous_tag=$tag
     break
