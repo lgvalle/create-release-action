@@ -24,7 +24,10 @@ runs:
     - id: create_commit_log
       shell: bash
       run: |
-        commit_log=$(python ./src/commitlog.py --branch ${{ inputs.branch-name }} --default-branch ${{ inputs.default-branch }})
+        # Determine the current branch from the GitHub Actions context
+        current_branch="${{ github.event.pull_request.head.ref }}"
+        
+        commit_log=$(./src/commitlog.sh --branch "$current_branch")
         echo "COMMIT_LOG=$commit_log" >> "$GITHUB_OUTPUT"
 
     - id: summarise_commit_log
