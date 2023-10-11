@@ -16,7 +16,7 @@ tags_sorted_by_date=$(git tag --sort='-creatordate')
 # Find the previous tag based on the tagger date
 previous_tag=""
 for tag in $tags_sorted_by_date; do
-  if git branch --contains $tag | grep -q "$current_branch"; then
+  if git branch --contains $tag | grep -q -- "$current_branch"; then
     previous_tag=$tag
     break
   fi
@@ -31,4 +31,4 @@ fi
 
 commit_log=$(eval $git_command)
 
-echo $commit_log
+echo "$commit_log"
