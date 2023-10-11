@@ -10,7 +10,7 @@ on:
 jobs:      
   create_release:
     runs-on: ubuntu-latest
-    if: startsWith(github.head_ref, 'release/') && github.event.pull_request.merged == true
+    if: startsWith(github.head_ref, 'release/') && github.event.pull_request.merged == false
     steps:
       - uses: actions/checkout@v4
       - name: Create Release action

@@ -33,5 +33,3 @@ echo "Executing git command: $git_command"
 commit_log=$(eval $git_command)
 
 echo "$commit_log"
-
-return commit_log
