@@ -21,6 +21,7 @@ runs:
     - id: create_commit_log
       shell: bash
       run: |
+        git fetch origin
         commit_log=$(./src/commitlog.sh --branch "${{ inputs.branch-name }}")
         echo "COMMIT_LOG=$commit_log" >> "$GITHUB_OUTPUT"
 
