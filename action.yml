@@ -53,7 +53,7 @@ runs:
         echo "$git_command"
         commit_log=$(eval $git_command)
 
-        echo "COMMIT_LOG=$commit_log >> "$GITHUB_OUTPUT"
+        echo "COMMIT_LOG=$commit_log" >> "$GITHUB_OUTPUT"
 
     - id: summarise_commit_log
       shell: bash
