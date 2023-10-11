@@ -29,9 +29,4 @@ else
   git_command="git log $previous_tag..$current_branch $commit_log_format"
 fi
 
-echo "Git command $git_command"
-
-
-commit_log=$(eval $git_command)
-
-echo "$commit_log"
+echo "$git_command"
