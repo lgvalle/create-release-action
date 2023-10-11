@@ -38,14 +38,8 @@ runs:
 
         echo "::debug::Tags sorted by date $tags_sorted_by_date"
         # Find the previous tag based on the tagger date
-        previous_tag=""
-        for tag in $tags_sorted_by_date; do
-          echo "::debug::Tag $tag"
-          if git branch --contains $tag | grep -q -- "$current_branch"; then
-            previous_tag=$tag
-            break
-          fi
-        done
+        previous_tag=$(git describe --tags --abbrev=0 $current_branch)
+        echo "::debug:: Prevoius tag= $previous_tag"
 
         # Calculate the commit log
         if [ -z "$previous_tag" ]; then
