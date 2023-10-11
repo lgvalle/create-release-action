@@ -22,6 +22,7 @@ runs:
       shell: bash
       run: |
         commit_log=$(./src/commitlog.sh --branch "${{ inputs.branch-name }}")
+        echo commit_log
         echo "COMMIT_LOG=\"$commit_log\"" >> "$GITHUB_OUTPUT"
 
     - id: summarise_commit_log
