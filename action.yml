@@ -22,7 +22,10 @@ runs:
       shell: bash
       run: |
         git fetch origin
-        commit_log=$(./src/commitlog.sh --branch "${{ inputs.branch-name }}")
+        git_command=$(./src/commitlog.sh --branch "${{ inputs.branch-name }}")
+        echo "::debug::Git command $git_command"
+        commit_log=$(eval $git_command)
+        echo "::debug::Commig log $commit_log"
         echo "COMMIT_LOG=$commit_log" >> "$GITHUB_OUTPUT"
 
     - id: summarise_commit_log
