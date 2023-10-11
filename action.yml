@@ -36,7 +36,6 @@ runs:
         # Get a list of all tags sorted by tagger date
         tags_sorted_by_date=$(git tag --sort='-creatordate')
 
-        echo "::debug::Tags sorted by date $tags_sorted_by_date"
         # Find the previous tag based on the tagger date
         previous_tag=$(git describe --tags --abbrev=0 $current_branch)
         echo "::debug:: Prevoius tag= $previous_tag"
