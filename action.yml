@@ -39,9 +39,16 @@ runs:
         echo "Tags are sorted..."
 
         # Find the previous tag based on the tagger date
-        previous_tag=$(git describe --tags --abbrev=0 $current_branch)
+        previous_tag=""
+
+        for tag in $tags_sorted_by_date; do
+          if git branch --contains $tag | grep -q -- "$current_branch"; then
+            previous_tag=$tag
+            break
+          fi
+        done
         
-        echo "Previous tag $previous_tag"
+        echo "Previous tag... $previous_tag"
 
         # Calculate the commit log
         if [ -z "$previous_tag" ]; then
