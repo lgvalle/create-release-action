@@ -40,11 +40,18 @@ runs:
 
         echo "Tags are sorted...done"
 
+        # Define the git commands
+        git_current_commit="$(git rev-parse $current_branch)"
+
+        echo "Current branch commit: $git_current_commit"
         # Find the previous tag based on the tagger date
         previous_tag=""
 
         for tag in $tags_sorted_by_date; do
-          if git branch --contains $tag | grep -q -- "$current_branch"; then
+          tag_commit="$(git rev-parse $tag)"
+          echo ("Tag $tag")
+          echo ("Tag commit $tag_commit")
+          if [ "$tag_commit" != "$git_current_commit" ]; then
             previous_tag=$tag
             break
           fi
