@@ -60,6 +60,9 @@ runs:
 
         
         commit_log=$(eval $git_command)
+        echo "Commit log 1 == $commit_log"
+        commit_log=$(echo "$commit_log" | sed 's/^"\(.*\)"$/\1/')
+        echo "Commit log 2 == $commit_log"
         echo "COMMIT_LOG=$commit_log" >> "$GITHUB_OUTPUT"
 
     - id: summarise_commit_log
