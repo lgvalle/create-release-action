@@ -36,7 +36,9 @@ runs:
         # Get a list of all tags sorted by tagger date
         tags_sorted_by_date=$(git tag --sort='-creatordate')
 
-        echo "Tags are sorted..."
+        echo "Tags are sorted...$tags_sorted_by_date"
+
+        echo "Tags are sorted...done"
 
         # Find the previous tag based on the tagger date
         previous_tag=""
