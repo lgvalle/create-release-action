@@ -23,7 +23,7 @@ runs:
       run: |
         git fetch origin
 
-        commit_log=$(./src/commitlog.sh --branch "${{ inputs.branch-name }}")
+        commit_log=$(./src/commitlog.sh "${{ inputs.branch-name }}")
         
         echo 'COMMIT_LOG<<EOF' >> $GITHUB_OUTPUT
         echo $commit_log >> $GITHUB_OUTPUT
