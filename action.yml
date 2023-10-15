@@ -21,8 +21,13 @@ runs:
     - id: create_commit_log
       shell: bash
       run: |
-        commit_log=$(./src/commitlog.sh --branch "${{ inputs.branch-name }}")
-        echo "COMMIT_LOG=$commit_log" >> "$GITHUB_OUTPUT"
+        git fetch origin
+
+        commit_log=$(./src/commitlog.sh "${{ inputs.branch-name }}")
+        
+        echo 'COMMIT_LOG<<EOF' >> $GITHUB_OUTPUT
+        echo $commit_log >> $GITHUB_OUTPUT
+        echo 'EOF' >> $GITHUB_OUTPUT
 
     - id: summarise_commit_log
       shell: bash
@@ -42,7 +47,7 @@ runs:
         LOG_SUMMARY: ${{ steps.summarise_commit_log.outputs.LOG_SUMMARY }}
       run: |
         # Remove quotes to prevent malformed JSON
-        COMMIT_LOG=$(echo "$COMMIT_LOG" | sed 's/^"\(.*\)"$/\1/')
+        #COMMIT_LOG=$(echo "$COMMIT_LOG" | tr -d '"')
         RELEASE_BODY="$LOG_SUMMARY\n\n$COMMIT_LOG"
         
         # Create a JSON payload using a heredoc
@@ -51,7 +56,7 @@ runs:
           "tag_name": "${{ github.head_ref }}",
           "name": "${{ github.head_ref }}",
           "body": "$RELEASE_BODY",
-          "draft": false,
+          "draft": true,
           "prerelease": false,
           "generate_release_notes": false
         }
