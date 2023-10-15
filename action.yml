@@ -55,7 +55,7 @@ runs:
         {
           "tag_name": "${{ github.head_ref }}",
           "name": "${{ github.head_ref }}",
-          "description": "$RELEASE_BODY",
+          "body": "$RELEASE_BODY",
           "draft": true,
           "prerelease": false,
           "generate_release_notes": false
