@@ -3,7 +3,7 @@
 current_branch=$1
 
 # Define the git format
-commit_log_format="--pretty=format:\"%h - %an - %ad - %s\n\" --date=format:'%d %b %Y'"
+commit_log_format="--pretty=format:\"%h - %ad - %an - %s\n\" --date=format:'%d %b %Y'"
 
 if [ -z "$current_branch" ]; then
   echo "Error: Missing current branch name." >&2
