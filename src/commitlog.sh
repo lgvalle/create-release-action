@@ -37,4 +37,6 @@ fi
 
 commit_log=$(eval $git_command)
 
+
+
 echo "$commit_log"
