@@ -47,7 +47,7 @@ runs:
         LOG_SUMMARY: ${{ steps.summarise_commit_log.outputs.LOG_SUMMARY }}
       run: |
         # Remove quotes to prevent malformed JSON
-        COMMIT_LOG=$(echo "$COMMIT_LOG" | tr -d '"')
+        #COMMIT_LOG=$(echo "$COMMIT_LOG" | tr -d '"')
         RELEASE_BODY="$LOG_SUMMARY\n\n$COMMIT_LOG"
         
         # Create a JSON payload using a heredoc
