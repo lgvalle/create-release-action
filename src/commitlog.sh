@@ -13,16 +13,20 @@ fi
 # Get a list of all tags sorted by tagger date
 tags_sorted_by_date=$(git tag --sort='-creatordate')
 
-echo "::debug::Tags sorted by date $tags_sorted_by_date"
+# Define the git commands
+git_current_commit="$(git rev-parse $current_branch)"
+
 # Find the previous tag based on the tagger date
 previous_tag=""
+
 for tag in $tags_sorted_by_date; do
-  echo "::debug::Tag $tag"
-  if git branch --contains $tag | grep -q -- "$current_branch"; then
+  tag_commit="$(git rev-parse $tag)"
+  if [ "$tag_commit" != "$git_current_commit" ]; then
     previous_tag=$tag
     break
   fi
 done
+
 
 # Calculate the commit log
 if [ -z "$previous_tag" ]; then
@@ -31,4 +35,7 @@ else
   git_command="git log $previous_tag..$current_branch $commit_log_format"
 fi
 
-echo "$git_command"
+
+commit_log=$(eval $git_command)
+
+echo $commit_log
