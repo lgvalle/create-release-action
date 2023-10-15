@@ -35,7 +35,10 @@ else
   git_command="git log $previous_tag..$current_branch $commit_log_format"
 fi
 
+echo "XXX git command == $git_command"
 
 commit_log=$(eval $git_command)
+
+echo "XXX commit log == $commit_log"
 
 echo $commit_log
