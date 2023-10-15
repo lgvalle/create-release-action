@@ -60,7 +60,7 @@ runs:
 
         
         commit_log=$(eval $git_command)
-        echo 'XXX commit log == $commit_log'
+        echo "XXX commit log == $commit_log"
         echo 'COMMIT_LOG<<EOF' >> $GITHUB_OUTPUT
         echo $commit_log >> $GITHUB_OUTPUT
         echo 'EOF' >> $GITHUB_OUTPUT
@@ -74,7 +74,7 @@ runs:
       run: |
         pip install openai
         summary=$(python ./src/query_openai.py --changelog "$COMMIT_LOG" --api-key $OPENAI_API_KEY)
-        echo 'XXX summary == $commit_log'
+        echo "XXX summary == $summary"
         echo "LOG_SUMMARY=$summary" >> "$GITHUB_OUTPUT"
 
     - id: create_release
