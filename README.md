@@ -27,4 +27,4 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-* `openai-api-key` is an optional parameter. If present it will create a summary a human-readable summary of the changelog
+* `openai-api-key` is an optional parameter. If present, it will create a summary a human-readable summary of the changelog
