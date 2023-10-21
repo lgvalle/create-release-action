@@ -21,7 +21,7 @@ runs:
     - id: create_commit_log
       shell: bash
       run: |
-        git fetch origin
+        git fetch --tags
 
         commit_log=$(./src/commitlog.sh "${{ inputs.branch-name }}")
         
