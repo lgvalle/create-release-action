@@ -25,6 +25,7 @@ runs:
 
         commit_log=$(./src/commitlog.sh "${{ inputs.branch-name }}")
         
+        echo $commit_log
         echo 'COMMIT_LOG<<EOF' >> $GITHUB_OUTPUT
         echo $commit_log >> $GITHUB_OUTPUT
         echo 'EOF' >> $GITHUB_OUTPUT
