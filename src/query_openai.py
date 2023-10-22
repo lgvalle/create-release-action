@@ -13,13 +13,12 @@ def main():
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "Summarise the next git commit log in a friendly human-readable way, max two sentences."},
+            {"role": "system", "content": "Summarise the following git commit log for a new release in a friendly human-readable way"},
             {"role": "user", "content": args.changelog}
         ])
 
     # Get the completion response from the API
     completion_response = completion.choices[0].message.content
-
     
     # Return the completion response to the invoker
     print(completion_response)
