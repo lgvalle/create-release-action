@@ -20,6 +20,7 @@ def main():
     # Get the completion response from the API
     completion_response = completion.choices[0].message.content
 
+    print("OpenAI completion response: "+completion_response)
     # Return the completion response to the invoker
     return completion_response
 
