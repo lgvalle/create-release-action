@@ -23,7 +23,7 @@ runs:
       run: |
         git fetch origin
 
-        commit_log=$(./src/commitlog.sh "${{ inputs.branch-name }}")
+        commit_log=$(src/commitlog.sh "${{ inputs.branch-name }}")
         
         echo 'COMMIT_LOG<<EOF' >> $GITHUB_OUTPUT
         echo $commit_log >> $GITHUB_OUTPUT
@@ -37,7 +37,7 @@ runs:
         OPENAI_API_KEY: ${{ inputs.openai-api-key }}
       run: |
         pip install openai
-        summary=$(python ./src/query_openai.py --changelog "$COMMIT_LOG" --api-key $OPENAI_API_KEY)
+        summary=$(python src/query_openai.py --changelog "$COMMIT_LOG" --api-key $OPENAI_API_KEY)
         echo "LOG_SUMMARY=$summary" >> "$GITHUB_OUTPUT"
 
     - id: create_release
