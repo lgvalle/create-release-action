@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Create Release action
-        uses: lgvalle/create-release-action@release/v0.4.2
+        uses: lgvalle/create-release-action@release/v0.4.3
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
